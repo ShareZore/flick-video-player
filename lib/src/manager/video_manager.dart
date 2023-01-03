@@ -9,7 +9,8 @@ class FlickVideoManager extends ChangeNotifier {
   FlickVideoManager(
       {required FlickManager flickManager,
       required this.autoPlay,
-      required this.autoInitialize})
+      required this.autoInitialize,
+      this.isCurrent = true})
       : _flickManager = flickManager;
 
   final FlickManager _flickManager;
@@ -27,6 +28,8 @@ class FlickVideoManager extends ChangeNotifier {
   final bool autoPlay;
 
   final bool autoInitialize;
+
+  final bool isCurrent;
 
   /// Is current playing video ended.
   bool get isVideoEnded => _currentVideoEnded;
@@ -59,6 +62,7 @@ class FlickVideoManager extends ChangeNotifier {
   /// Is current video initialized.
   bool get isVideoInitialized =>
       videoPlayerController?.value.isInitialized ?? false;
+
   bool get isPlaying => videoPlayerController?.value.isPlaying ?? false;
 
   /// Cancel the current auto player timer with option of playing the next video directly.
@@ -141,7 +145,10 @@ class FlickVideoManager extends ChangeNotifier {
           .seekTo(Duration(hours: 0, minutes: 0, seconds: 0, milliseconds: 0));
     }
 
-    if (autoPlay && ModalRoute.of(_flickManager._context!)!.isCurrent) {
+    if (autoPlay &&
+        (isCurrent
+            ? ModalRoute.of(_flickManager._context!)!.isCurrent
+            : true)) {
       //Chrome's autoplay policies are simple:
       //Muted autoplay is always allowed.
       if (kIsWeb) _flickManager.flickControlManager!.mute();

@@ -4,9 +4,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
 part 'video_manager.dart';
+
 part 'control_manager.dart';
+
 part 'display_manager.dart';
+
 part 'client_channels.dart';
 
 /// Manages [VideoPlayerController] and operations on it.
@@ -21,13 +25,18 @@ class FlickManager {
 
     /// Auto-play video once initialized.
     bool autoPlay = true,
+    //是否需要播放器再最上层才能播放
+    bool isCurrent = true,
   }) : this.getPlayerControlsTimeout =
             getPlayerControlsTimeout ?? getPlayerControlsTimeoutDefault {
     _flickControlManager = FlickControlManager(
       flickManager: this,
     );
     _flickVideoManager = FlickVideoManager(
-        flickManager: this, autoPlay: autoPlay, autoInitialize: autoInitialize);
+        flickManager: this,
+        autoPlay: autoPlay,
+        autoInitialize: autoInitialize,
+        isCurrent: isCurrent);
     _flickDisplayManager = FlickDisplayManager(
       flickManager: this,
     );
@@ -50,8 +59,11 @@ class FlickManager {
   GetPlayerControlsTimeout getPlayerControlsTimeout;
 
   FlickVideoManager? get flickVideoManager => _flickVideoManager;
+
   FlickDisplayManager? get flickDisplayManager => _flickDisplayManager;
+
   FlickControlManager? get flickControlManager => _flickControlManager;
+
   BuildContext? get context => _context;
 
   registerContext(BuildContext context) {
