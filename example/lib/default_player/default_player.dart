@@ -13,6 +13,7 @@ class DefaultPlayer extends StatefulWidget {
 
 class _DefaultPlayerState extends State<DefaultPlayer> {
   late FlickManager flickManager;
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +70,7 @@ class _DefaultPlayerState extends State<DefaultPlayer> {
         child: FlickVideoPlayer(
           flickManager: flickManager,
           flickVideoWithControls: FlickVideoWithControls(
+            videoFit: BoxFit.contain,
             closedCaptionTextStyle: TextStyle(fontSize: 8),
             controls: FlickPortraitControls(),
           ),
