@@ -29,6 +29,7 @@ dependencies:
     git:
       url: https://github.com/ShareZore/plugins.git
       path: packages/video_player/video_player/
+      ref: e842904d5ff44a6d46e032e889625a14ff8f7fb5
   provider: ^6.0.5
 
   # The following adds the Cupertino Icons font to your application.
