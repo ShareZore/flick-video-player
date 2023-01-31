@@ -22,12 +22,13 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController:
-          VideoPlayerController.network(mockData["items"][1]["trailer_url"]),
+      videoPlayerController: VideoPlayerController.network(
+          "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+          formatHint: VideoFormat.hls),
     );
-    List<String> urls = (mockData["items"] as List)
-        .map<String>((item) => item["trailer_url"])
-        .toList();
+    List<String> urls = [
+      "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+    ];
 
     dataManager = DataManager(flickManager: flickManager, urls: urls);
   }

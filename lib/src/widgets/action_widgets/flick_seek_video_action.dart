@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,15 +7,16 @@ import 'package:provider/provider.dart';
 /// GestureDetector's that calls [flickControlManager.seekForward]/[flickControlManager.seekBackward] onTap of opaque area/child.
 ///
 /// Renders two GestureDetector inside a row, the first detector is responsible to seekBackward and the second detector is responsible to seekForward.
-class FlickSeekVideoAction extends StatelessWidget {
+class FlickSeekVideoAction extends StatefulWidget {
   const FlickSeekVideoAction({
     Key? key,
     this.child,
     this.forwardSeekIcon = const Icon(Icons.fast_forward),
     this.backwardSeekIcon = const Icon(Icons.fast_rewind),
-    this.duration = const Duration(seconds: 10),
+    this.duration = const Duration(seconds: 5),
     this.seekForward,
     this.seekBackward,
+    this.handleVideoTap,
   }) : super(key: key);
 
   /// Widget to be stacked above this action.
@@ -48,6 +51,23 @@ class FlickSeekVideoAction extends StatelessWidget {
   /// Duration by which video will be seek.
   final Duration duration;
 
+  /// Function called onTap of the opaque area/child.
+  ///
+  /// Default action -
+  /// ``` dart
+  ///    displayManager.handleVideoTap();
+  /// ```
+  final Function? handleVideoTap;
+
+  @override
+  State<StatefulWidget> createState() => _FlickSeekVideoActionState();
+}
+
+class _FlickSeekVideoActionState extends State<FlickSeekVideoAction> {
+  Timer? timer;
+  bool showBackwardSeek = false;
+  bool showForwardSeek = false;
+
   @override
   Widget build(BuildContext context) {
     FlickDisplayManager displayManager =
@@ -55,8 +75,8 @@ class FlickSeekVideoAction extends StatelessWidget {
     FlickControlManager controlManager =
         Provider.of<FlickControlManager>(context);
 
-    bool showForwardSeek = displayManager.showForwardSeek;
-    bool showBackwardSeek = displayManager.showBackwardSeek;
+    // bool showForwardSeek = displayManager.showForwardSeek;
+    // bool showBackwardSeek = displayManager.showBackwardSeek;
 
     return Stack(children: <Widget>[
       Row(
@@ -65,11 +85,49 @@ class FlickSeekVideoAction extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onDoubleTap: () {
-                if (seekBackward != null) {
-                  seekBackward!();
+              onTap: () {
+                if (widget.handleVideoTap != null) {
+                  widget.handleVideoTap!();
                 } else {
-                  controlManager.seekBackward(duration);
+                  displayManager.handleVideoTap();
+                }
+              },
+              onTapDown: (detail) {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                timer =
+                    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+                  if (!showBackwardSeek) {
+                    setState(() {
+                      showBackwardSeek = true;
+                    });
+                  }
+                  if (widget.seekBackward != null) {
+                    widget.seekBackward!();
+                  } else {
+                    controlManager.seekBackward(widget.duration);
+                  }
+                });
+              },
+              onTapUp: (detail) {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                if (showBackwardSeek) {
+                  setState(() {
+                    showBackwardSeek = false;
+                  });
+                }
+              },
+              onTapCancel: () {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                if (showBackwardSeek) {
+                  setState(() {
+                    showBackwardSeek = false;
+                  });
                 }
               },
               child: Align(
@@ -78,14 +136,14 @@ class FlickSeekVideoAction extends StatelessWidget {
                   duration: Duration(milliseconds: 100),
                   firstChild: IconTheme(
                     data: IconThemeData(color: Colors.transparent),
-                    child: backwardSeekIcon,
+                    child: widget.backwardSeekIcon,
                   ),
                   crossFadeState: showBackwardSeek
                       ? CrossFadeState.showSecond
                       : CrossFadeState.showFirst,
                   secondChild: IconTheme(
                     data: IconThemeData(color: Colors.white),
-                    child: backwardSeekIcon,
+                    child: widget.backwardSeekIcon,
                   ),
                 ),
               ),
@@ -94,11 +152,49 @@ class FlickSeekVideoAction extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onDoubleTap: () {
-                if (seekForward != null) {
-                  seekForward!();
+              onTap: () {
+                if (widget.handleVideoTap != null) {
+                  widget.handleVideoTap!();
                 } else {
-                  controlManager.seekForward(duration);
+                  displayManager.handleVideoTap();
+                }
+              },
+              onTapDown: (detail) {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                timer =
+                    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+                  if (!showForwardSeek) {
+                    setState(() {
+                      showForwardSeek = true;
+                    });
+                  }
+                  if (widget.seekForward != null) {
+                    widget.seekForward!();
+                  } else {
+                    controlManager.seekForward(widget.duration);
+                  }
+                });
+              },
+              onTapUp: (detail) {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                if (showForwardSeek) {
+                  setState(() {
+                    showForwardSeek = false;
+                  });
+                }
+              },
+              onTapCancel: () {
+                if (timer != null) {
+                  timer?.cancel();
+                }
+                if (showForwardSeek) {
+                  setState(() {
+                    showForwardSeek = false;
+                  });
                 }
               },
               child: Align(
@@ -109,13 +205,13 @@ class FlickSeekVideoAction extends StatelessWidget {
                       data: IconThemeData(
                         color: Colors.transparent,
                       ),
-                      child: forwardSeekIcon),
+                      child: widget.forwardSeekIcon),
                   crossFadeState: showForwardSeek
                       ? CrossFadeState.showSecond
                       : CrossFadeState.showFirst,
                   secondChild: IconTheme(
                     data: IconThemeData(color: Colors.white),
-                    child: forwardSeekIcon,
+                    child: widget.forwardSeekIcon,
                   ),
                 ),
               ),
@@ -123,7 +219,7 @@ class FlickSeekVideoAction extends StatelessWidget {
           )
         ],
       ),
-      if (child != null) SizedBox(child: child),
+      if (widget.child != null) SizedBox(child: widget.child),
     ]);
   }
 }

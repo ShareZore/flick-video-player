@@ -70,7 +70,7 @@ class _DefaultPlayerState extends State<DefaultPlayer> {
         child: FlickVideoPlayer(
           flickManager: flickManager,
           flickVideoWithControls: FlickVideoWithControls(
-            videoFit: BoxFit.contain,
+            videoFit: BoxFit.fitWidth,
             closedCaptionTextStyle: TextStyle(fontSize: 8),
             controls: FlickPortraitControls(),
           ),

@@ -18,6 +18,7 @@ dependencies:
       url: https://github.com/ShareZore/plugins.git
       path: packages/video_player/video_player/
       ref: e842904d5ff44a6d46e032e889625a14ff8f7fb5
+#  video_player_web_hls: ^1.0.0+1
   provider: ^6.0.5
   wakelock: ^0.6.2
   universal_html: ^2.0.8
