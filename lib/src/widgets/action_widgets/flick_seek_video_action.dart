@@ -97,7 +97,7 @@ class _FlickSeekVideoActionState extends State<FlickSeekVideoAction> {
                   timer?.cancel();
                 }
                 timer =
-                    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+                    Timer.periodic(const Duration(milliseconds: 500), (timer) {
                   if (!showBackwardSeek) {
                     setState(() {
                       showBackwardSeek = true;
@@ -164,7 +164,7 @@ class _FlickSeekVideoActionState extends State<FlickSeekVideoAction> {
                   timer?.cancel();
                 }
                 timer =
-                    Timer.periodic(const Duration(milliseconds: 200), (timer) {
+                    Timer.periodic(const Duration(milliseconds: 500), (timer) {
                   if (!showForwardSeek) {
                     setState(() {
                       showForwardSeek = true;

@@ -29,6 +29,7 @@ class FlickControlManager extends ChangeNotifier {
 
   VideoPlayerController? get _videoPlayerController =>
       _flickManager.flickVideoManager!.videoPlayerController;
+
   bool get _isPlaying => _flickManager.flickVideoManager!.isPlaying;
 
   /// Enter full-screen.
@@ -119,15 +120,31 @@ class FlickControlManager extends ChangeNotifier {
     await _videoPlayerController!.seekTo(moment);
   }
 
+  Duration data = Duration();
+
   /// Seek video forward by the duration.
   Future<void> seekForward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: true);
+    if (Platform.isIOS) {
+      if (data != _videoPlayerController!.value.position) {
+        data = _videoPlayerController!.value.position;
+      } else {
+        return;
+      }
+    }
     await seekTo(_videoPlayerController!.value.position + videoSeekDuration);
   }
 
   /// Seek video backward by the duration.
   Future<void> seekBackward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: false);
+    if (Platform.isIOS) {
+      if (data != _videoPlayerController!.value.position) {
+        data = _videoPlayerController!.value.position;
+      } else {
+        return;
+      }
+    }
     await seekTo(
       _videoPlayerController!.value.position - videoSeekDuration,
     );
