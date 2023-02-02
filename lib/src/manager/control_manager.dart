@@ -125,11 +125,13 @@ class FlickControlManager extends ChangeNotifier {
   /// Seek video forward by the duration.
   Future<void> seekForward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: true);
-    if (Platform.isIOS) {
-      if (data != _videoPlayerController!.value.position) {
-        data = _videoPlayerController!.value.position;
-      } else {
-        return;
+    if (!kIsWeb) {
+      if (Platform.isIOS) {
+        if (data != _videoPlayerController!.value.position) {
+          data = _videoPlayerController!.value.position;
+        } else {
+          return;
+        }
       }
     }
     await seekTo(_videoPlayerController!.value.position + videoSeekDuration);
@@ -138,11 +140,13 @@ class FlickControlManager extends ChangeNotifier {
   /// Seek video backward by the duration.
   Future<void> seekBackward(Duration videoSeekDuration) async {
     _flickManager._handleVideoSeek(forward: false);
-    if (Platform.isIOS) {
-      if (data != _videoPlayerController!.value.position) {
-        data = _videoPlayerController!.value.position;
-      } else {
-        return;
+    if (!kIsWeb) {
+      if (Platform.isIOS) {
+        if (data != _videoPlayerController!.value.position) {
+          data = _videoPlayerController!.value.position;
+        } else {
+          return;
+        }
       }
     }
     await seekTo(
