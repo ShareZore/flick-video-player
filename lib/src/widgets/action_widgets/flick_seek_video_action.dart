@@ -13,7 +13,7 @@ class FlickSeekVideoAction extends StatefulWidget {
     this.child,
     this.forwardSeekIcon = const Icon(Icons.fast_forward),
     this.backwardSeekIcon = const Icon(Icons.fast_rewind),
-    this.duration = const Duration(seconds: 5),
+    this.duration = const Duration(seconds: 3),
     this.seekForward,
     this.seekBackward,
     this.handleVideoTap,
