@@ -28,6 +28,9 @@ class FlickManager {
     bool autoPlay = true,
     //是否需要播放器再最上层才能播放
     bool isCurrent = true,
+
+    //加载完成是否能播放
+    this.isInitSuccessPlay = true,
   }) : this.getPlayerControlsTimeout =
             getPlayerControlsTimeout ?? getPlayerControlsTimeoutDefault {
     _flickControlManager = FlickControlManager(
@@ -51,6 +54,9 @@ class FlickManager {
 
   /// Video end callback, change the video in this callback.
   Function? onVideoEnd;
+
+  //加载完成是否能播放
+  bool isInitSuccessPlay;
 
   /// Player controls auto-hide timeout callback, called when player state changes.
   ///

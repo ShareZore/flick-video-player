@@ -135,6 +135,8 @@ class FlickVideoManager extends ChangeNotifier {
       } catch (err) {
         _flickManager._handleErrorInVideo();
       }
+    } else {
+      _flickManager.isInitSuccessPlay = true;
     }
 
     // If movie already ended, restart the movie (Happens when previously used controller is
@@ -148,7 +150,8 @@ class FlickVideoManager extends ChangeNotifier {
     if (autoPlay &&
         (isCurrent
             ? ModalRoute.of(_flickManager._context!)!.isCurrent
-            : true)) {
+            : true) &&
+        _flickManager.isInitSuccessPlay) {
       //Chrome's autoplay policies are simple:
       //Muted autoplay is always allowed.
       if (kIsWeb) _flickManager.flickControlManager!.mute();

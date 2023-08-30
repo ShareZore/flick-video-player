@@ -21,6 +21,7 @@ class _AnimationPlayerState extends State<AnimationPlayer> {
   List items = mockData['items'];
   bool _pauseOnTap = true;
   double playBackSpeed = 1.0;
+
   @override
   void initState() {
     super.initState();
@@ -57,13 +58,18 @@ class _AnimationPlayerState extends State<AnimationPlayer> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: FlickVideoPlayer(
-                flickManager: flickManager,
-                flickVideoWithControls: AnimationPlayerPortraitVideoControls(
-                    dataManager: dataManager, pauseOnTap: _pauseOnTap),
-                flickVideoWithControlsFullscreen: FlickVideoWithControls(
-                  controls: AnimationPlayerLandscapeControls(
-                    animationPlayerDataManager: dataManager,
+              child: Container(
+                child: Center(
+                  child: FlickVideoPlayer(
+                    flickManager: flickManager,
+                    flickVideoWithControls:
+                        AnimationPlayerPortraitVideoControls(
+                            dataManager: dataManager, pauseOnTap: _pauseOnTap),
+                    flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                      controls: AnimationPlayerLandscapeControls(
+                        animationPlayerDataManager: dataManager,
+                      ),
+                    ),
                   ),
                 ),
               ),

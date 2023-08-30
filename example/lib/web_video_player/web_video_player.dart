@@ -23,11 +23,13 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
     super.initState();
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.network(
-          "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
-          formatHint: VideoFormat.hls),
+        "https://vod.pipi.cn/43903a81vodtransgzp1251246104/bbd4f07a5285890808066187974/v.f42906.mp4",
+      ),
     );
     List<String> urls = [
-      "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+      "https://vod.pipi.cn/43903a81vodtransgzp1251246104/bbd4f07a5285890808066187974/v.f42906.mp4",
+      "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+      "https://video-api.ddhmit.net/file/url?t=c08c8199e7f5e874dca63af55cf23e2bf57fbf0ae6b8e2bbb6a898303ca6fa40034c34e947fcb2847995de5dc657a802c70c790968a1b56771f27fb39a6ed39c27f9ed039e918c8627e5fe077ed6c26101dbd7def896dca098df6a2f82239c5568f45c756c4a847f5cf3fd8d15f3cd44b57f4aa70c0098d431b0a1717034d48e",
     ];
 
     dataManager = DataManager(flickManager: flickManager, urls: urls);

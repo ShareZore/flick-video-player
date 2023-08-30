@@ -54,50 +54,53 @@ class _FlickMultiPlayerState extends State<FlickMultiPlayer> {
         }
       },
       child: Container(
-        child: FlickVideoPlayer(
-          flickManager: flickManager,
-          flickVideoWithControls: FlickVideoWithControls(
-            playerLoadingFallback: Positioned.fill(
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Image.asset(
-                      widget.image!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    right: 10,
-                    top: 10,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                        strokeWidth: 4,
+        child: Center(
+          child: FlickVideoPlayer(
+            flickManager: flickManager,
+            flickVideoWithControls: FlickVideoWithControls(
+              playerLoadingFallback: Positioned.fill(
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Image.asset(
+                        widget.image!,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                          strokeWidth: 4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              controls: FeedPlayerPortraitControls(
+                flickMultiManager: widget.flickMultiManager,
+                flickManager: flickManager,
+              ),
+              videoFit: BoxFit.contain,
             ),
-            controls: FeedPlayerPortraitControls(
-              flickMultiManager: widget.flickMultiManager,
-              flickManager: flickManager,
+            flickVideoWithControlsFullscreen: FlickVideoWithControls(
+              playerLoadingFallback: Center(
+                  child: Image.network(
+                widget.image!,
+                fit: BoxFit.fitWidth,
+              )),
+              controls: FlickLandscapeControls(),
+              iconThemeData: IconThemeData(
+                size: 40,
+                color: Colors.white,
+              ),
+              textStyle: TextStyle(fontSize: 16, color: Colors.white),
             ),
-          ),
-          flickVideoWithControlsFullscreen: FlickVideoWithControls(
-            playerLoadingFallback: Center(
-                child: Image.network(
-              widget.image!,
-              fit: BoxFit.fitWidth,
-            )),
-            controls: FlickLandscapeControls(),
-            iconThemeData: IconThemeData(
-              size: 40,
-              color: Colors.white,
-            ),
-            textStyle: TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ),

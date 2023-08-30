@@ -4,43 +4,19 @@ Map<String, dynamic> shortVideoMockData = {
       "title": "Reel 1",
       "image": "images/rio_from_above_poster.jpg",
       "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel1.mp4?raw=true",
+          "http://vfx.mtime.cn/Video/2017/03/31/mp4/170331093811717750.mp4",
     },
     {
       "title": "Reel 2",
       "image": "images/the_valley_poster.jpg",
       "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel2.mp4?raw=true",
+          "http://vjs.zencdn.net/v/oceans.mp4",
     },
     {
       "title": "Reel 3",
       "image": "images/iceland_poster.jpg",
       "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel3.mp4?raw=true",
-    },
-    {
-      "title": "Reel 4",
-      "image": "images/9th_may_poster.jpg",
-      "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel4.mp4?raw=true",
-    },
-    {
-      "title": "Reel 5",
-      "image": "images/rio_from_above_poster.jpg",
-      "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel5.mp4?raw=true",
-    },
-    {
-      "title": "Reel 6",
-      "image": "images/the_valley_poster.jpg",
-      "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel6.mp4?raw=true",
-    },
-    {
-      "title": "Reel 7",
-      "image": "images/iceland_poster.jpg",
-      "trailer_url":
-          "https://github.com/rohitprajapatii/assets/blob/main/reel7.mp4?raw=true",
+          "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
     },
   ]
 };

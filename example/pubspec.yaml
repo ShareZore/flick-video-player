@@ -22,19 +22,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  visibility_detector: ^0.3.3
+  visibility_detector: ^0.4.0+2
   flick_video_player:
     path: '../'
   video_player:
-    git:
-      url: https://github.com/ShareZore/plugins.git
-      path: packages/video_player/video_player/
-      ref: e842904d5ff44a6d46e032e889625a14ff8f7fb5
+    path: ../video_player/video_player
+  video_player_web_hls:
+    path: ../video_player_web_hls
   provider: ^6.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
+  dio: ^5.1.1
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
